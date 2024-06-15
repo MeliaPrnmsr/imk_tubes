@@ -117,8 +117,8 @@ Route::group(['middleware' => ['pelatih']], function () {
         Route::get('/detailsertifikat/{id}', [PelatihController::class, 'detailSertifikat'])->name('detailsertifikat');
 
         Route::get('/evaluasi', [PelatihController::class, 'evaluasi'])->name('evaluasi');
-
         Route::post('/evaluasi2', [PelatihController::class, 'store_evaluasi'])->name('evaluasi2');
+        
         Route::get('/datamurid', [PelatihController::class, 'dataMurid'])->name('datamurid');
         Route::get('/editmurid/{id}', [PelatihController::class, 'editMurid'])->name('editmurid');
         Route::post('/updatemurid/{id}', [PelatihController::class, 'updateMurid'])->name('updatemurid');
