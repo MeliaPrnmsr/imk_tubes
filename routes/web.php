@@ -111,13 +111,17 @@ Route::group(['middleware' => ['pelatih']], function () {
 
         Route::get('/absensi', [PelatihController::class, 'showAbsensi'])->name('showAbsensi');
         Route::get('/tambah_absensi', [PelatihController::class, 'tambahAbsensi'])->name('tambahAbsensi');
-        Route::get('/store_absensi', [PelatihController::class, 'storeAbsensi'])->name('storeAbsensi');
+        Route::post('/store_absensi', [PelatihController::class, 'storeAbsensi'])->name('storeAbsensi');
+        Route::get('/delete/{id}', [PelatihController::class, 'delete_absensi'])->name('delete.absensi');
 
         Route::get('/sertifikat', [PelatihController::class, 'sertifikat'])->name('sertifikat');
         Route::get('/detailsertifikat/{id}', [PelatihController::class, 'detailSertifikat'])->name('detailsertifikat');
 
         Route::get('/evaluasi', [PelatihController::class, 'evaluasi'])->name('evaluasi');
         Route::post('/evaluasi2', [PelatihController::class, 'store_evaluasi'])->name('evaluasi2');
+
+        Route::get('/jadwal', [PelatihController::class, 'jadwal'])->name('jadwal');
+        Route::get('/filterjadwalpelatih', [PelatihController::class, 'filterJadwal'])->name('filter.jadwal.pelatih');
         
         Route::get('/datamurid', [PelatihController::class, 'dataMurid'])->name('datamurid');
         Route::get('/editmurid/{id}', [PelatihController::class, 'editMurid'])->name('editmurid');

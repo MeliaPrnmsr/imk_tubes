@@ -1,65 +1,74 @@
 @extends('pelatih.p_layout')
 
 @section('content')
-    <div class="min-h-screen bg-cover bg-center" style="background-image: url('{{ asset('asset/img/siluet8.jpg') }}');">
-        <div class="bg-white bg-opacity-75 p-6 rounded-lg shadow-lg min-h-screen">
-            <div class="mb-4">
-                <h1 class="text-2xl font-bold mb-6">Jadwal Saya</h1>
-                <div class="flex flex-wrap items-center justify-between">
-                    <div class="flex items-center mb-4 sm:mb-0">
-                        <form method="GET" action="{{ route('jadwal.index') }}">
-                            <label for="dojo" class="mr-2 font-semibold text-sm md:text-xl">Pilih Dojo:</label>
-                            <select id="dojo" name="dojo"
-                                class="text-sm md:text-xl border border-gray-300 rounded-lg py-2 px-4 mr-4 focus:outline-none focus:ring-2 focus:ring-gray-700"
-                                onchange="this.form.submit()">
-                                <option value="all" {{ !isset($kode_dojo) || $kode_dojo == 'all' ? 'selected' : '' }}>
-                                    All</option>
-                                @foreach ($dojo as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ isset($kode_dojo) && $kode_dojo == $item->id ? 'selected' : '' }}>
-                                        {{ $item->nama_dojo }}</option>
-                                @endforeach
-                            </select>
+    <div class="mt-2 mb-4 md:mb-8 md:mt-4 flex justify-between items-center">
+        <h1 class="font-bold text-xl md:text-4xl md:font-bold text-black">Data Jadwal</h1>
+    </div>
 
-                            <label for="bulan" class="mr-2 font-semibold text-sm md:text-xl">Pilih Bulan:</label>
-                            <select id="bulan" name="bulan"
-                                class="text-sm md:text-xl border border-gray-300 rounded-lg py-2 px-4 mr-4 focus:outline-none focus:ring-2 focus:ring-gray-700"
-                                onchange="this.form.submit()">
-                                <option value="">Pilih Bulan</option>
-                                @foreach ($bulan as $item)
-                                    <option value="{{ $item['value'] }}"
-                                        {{ isset($selected_month) && $selected_month == $item['value'] ? 'selected' : '' }}>
-                                        {{ $item['label'] }}</option>
-                                @endforeach
-                            </select>
-                        </form>
-                    </div>
-                </div>
+    {{-- Button Menu Start --}}
+    <form action="{{ route('filter.jadwal.pelatih') }}" method="GET">
+        <div class="flex justify-between items-center mb-4">
+            <div class="flex">
+                <select name="dojo" id="dojo" class="p-2 bg-gray-300 mr-3 text-xs md:text-base">
+                    <option value="">Semua Dojo</option>
+                    @foreach ($dojo as $item)
+                        <option value="{{ $item->kode_dojo }}">{{ $item->nama_dojo }}</option>
+                    @endforeach
+                </select>
+                <select name="waktu" id="waktu" class="p-2 bg-gray-300 mr-3 text-xs md:text-base">
+                    <option value="minggu">Minggu</option>
+                    <option value="bulan">Bulan</option>
+                    <option value="tahun">Tahun</option>
+                </select>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="min-w-full bg-white rounded-lg overflow-hidden">
-                    <thead class="bg-red-800 text-white">
-                        <tr>
-                            <th class="w-3/12 py-2">Hari</th>
-                            <th class="w-3/12 py-2">Tanggal</th>
-                            <th class="w-3/12 py-2">Waktu</th>
-                            <th class="w-3/12 py-2">Dojo</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-gray-900">
-                        @foreach ($data as $item)
-                            <tr class="bg-white border-b">
-                                <td class="border px-4 py-2 text-center">{{ $item->catatan }}</td>
-                                <td class="border px-4 py-2 text-center">{{ $item->tanggal }}</td>
-                                <td class="border px-4 py-2 text-center">{{ $item->jam_mulai }} - {{ $item->jam_selesai }}
-                                </td>
-                                <td class="border px-4 py-2 text-center">{{ $item->dojo->nama_dojo }}</td>
+            <div>
+                <button type="submit"
+                    class="bg-blue-500 text-white px-3 py-1 md:px-4 md:py-2 rounded-lg hover:bg-blue-600">Filter</button>
+            </div>
+        </div>
+    </form>
+
+    {{-- Button Menu End --}}
+
+    {{-- list jadwal --}}
+    <div class="flex flex-col mt-4 md:mt-8">
+        <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                <div class="overflow-hidden">
+                    <table class="min-w-full text-left text-sm md:text-base font-light text-surface ">
+                        <thead class="border-b border-neutral-200 font-medium md:text-l bg-red-700">
+                            <tr class="text-white">
+                                <th scope="col" class="px-6 py-4">Tanggal</th>
+                                <th scope="col" class="px-6 py-4 text-center">Waktu</th>
+                                <th scope="col" class="px-6 py-4">Lokasi</th>
+
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($jadwal as $item)
+                                @if (!$filter || ($filter['dojo'] == $item->kode_dojo && $filter['waktu'] == 'minggu'))
+                                    <tr class="border-b border-neutral-200">
+                                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $item->tanggal }}</td>
+                                        <td class="whitespace-nowrap px-6 py-4 font-medium text-center">
+                                            {{ $item->jam_mulai }} -
+                                            {{ $item->jam_selesai }}</td>
+                                        <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $item->tempat }}</td>
+
+                                    </tr>
+                                @endif
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+    {{-- list jadwal --}}
+    <div class="flex items-center justify-center mt-8">
+        {{ $jadwal->links() }}
+    </div>
+
+    {{-- pagination menampilkan 1 minggu --}}
 @endsection

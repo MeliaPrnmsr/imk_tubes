@@ -10,11 +10,19 @@ class Absensi extends Model
     use HasFactory;
 
     protected $table = 'absensi';
-
     protected $primaryKey = 'kode_absensi';
 
-    public function user()
+    protected $fillable = [
+        'kode_murid', 'status_kehadiran', 'tanggal_absensi'
+    ];
+
+    public function murid()
     {
-        return $this->belongsTo(murid::class, 'kode_murid');
+        return $this->belongsTo(Murid::class, 'kode_murid', 'kode_murid');
+    }
+
+    public function dojo()
+    {
+        return $this->hasManyThrough(Dojo::class, Murid::class, 'kode_dojo', 'kode_dojo', 'kode_murid', 'kode_dojo');
     }
 }

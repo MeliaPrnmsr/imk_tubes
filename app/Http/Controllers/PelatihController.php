@@ -12,6 +12,7 @@ use App\models\Interaksi;
 use App\Models\Sertifikat;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,58 +26,123 @@ class PelatihController extends Controller
 
         return view('pelatih.p_dashboard', ['jadwals' => $jadwals]);
     }
+
     public function showAbsensi(Request $request)
     {
-        $dojos = dojo::get();
-        $absensi = absensi::with('user')->get();
-        $data = absensi::join('murid', 'absensi.users_id', '=', 'murid.user_id')
-            ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
-            ->select('absensi.kode_absensi', 'absensi.users_id', 'murid.nama_murid', 'murid.sabuk', 'absensi.status_kehadiran', 'murid.kode_dojo', 'dojo.nama_dojo', 'absensi.tanggal_absensi')
-            ->get();
+        $query = Absensi::join('murid', 'absensi.kode_murid', '=', 'murid.kode_murid')
+                        ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
+                        ->select('absensi.*', 'murid.nama_murid', 'murid.sabuk', 'dojo.nama_dojo');
 
-        if ($request->input('dojo')) {
-            $data = absensi::join('murid', 'absensi.users_id', '=', 'murid.users_id')
-                ->join('dojo', 'murid.kode_dojo', '=', '    dojo.kode_dojo')
-                ->where('murid.kode_dojo', '=', $request->input('dojo'))
-                ->select('absensi.kode_absensi', 'absensi.users_id', 'murid.nama_murid', 'murid.sabuk', 'absensi.status_kehadiran', 'murid.kode_dojo', 'dojo.nama_dojo', 'absensi.tanggal_absensi')
-                ->get();
-        }
-        if ($request->input('tanggal')) {
-            $data = absensi::join('murid', 'absensi.users_id', '=', 'murid.users_id')
-                ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
-                ->where('absensi.tanggal_absensi', '=', $request->input('tanggal'))
-                ->select('absensi.kode_absensi', 'absensi.users_id', 'murid.nama_murid', 'murid.sabuk', 'absensi.status_kehadiran', 'murid.kode_dojo', 'dojo.nama_dojo', 'absensi.tanggal_absensi')
-                ->get();
+        if ($request->has('dojo') && $request->dojo != 'all') {
+            $query->where('murid.kode_dojo', $request->dojo);
         }
 
-        return view('pelatih.p_absensi', compact('dojos', 'absensi', 'data'));
+        if ($request->has('bulan') && !empty($request->bulan)) {
+            $query->whereMonth('absensi.tanggal_absensi', Carbon::parse($request->bulan)->month)
+                  ->whereYear('absensi.tanggal_absensi', Carbon::parse($request->bulan)->year);
+        }
+
+        if ($request->has('tanggal') && !empty($request->tanggal)) {
+            $query->whereDate('absensi.tanggal_absensi', $request->tanggal);
+        }
+
+        $data = $query->get();
+        $dojos = Dojo::all();
+
+        return view('pelatih.p_absensi', compact('data', 'dojos'));
     }
 
-    public function tambahAbsensi()
+
+    public function delete_absensi($id){
+
+        $absensi = absensi::findOrFail($id);
+        $absensi->delete(); 
+
+        return redirect()->route('showAbsensi')->with('success', 'Absensi berhasil dihapus');
+    }
+
+
+    public function tambahAbsensi(Request $request)
     {
-        $absensi = absensi::join('murid', 'absensi.users_id', '=', 'murid.users_id')
-            ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
-            ->where('absensi.status_kehadiran', '=', 'hadir')
-            ->where('absensi.status_kehadiran', '=', 'tidak hadir')
-            ->select('absensi.kode_absensi', 'absensi.users_id', 'murid.nama_murid', 'murid.sabuk', 'absensi.status_kehadiran', 'murid.kode_dojo', 'dojo.nama_dojo', 'absensi.tanggal_absensi')
-            ->get();
-        return view('pelatih.p_tambah_absensi', ['absensi' => $absensi]);
-    }
+        $query = Murid::join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
+                      ->select('murid.*', 'dojo.nama_dojo');
 
+        if ($request->has('dojo') && $request->dojo != 'all') {
+            $query->where('murid.kode_dojo', $request->dojo);
+        }
+
+        $murid = $query->get();
+        $dojos = Dojo::all();
+
+        return view('pelatih.p_tambah_absensi', compact('murid', 'dojos'));
+    }
     public function storeAbsensi(Request $request)
     {
-        absensi::create([
-            'users_id' => $request->users_id,
-            'tanggal_absensi' => $request->tanggal,
-            'status_kehadiran' => $request->status_kehadiran
+        // Validasi input
+        $validated = $request->validate([
+            'kode_murid' => 'required|exists:murid,kode_murid',
+            'status_kehadiran' => 'required|in:hadir,tidak hadir',
+            'tanggal_absensi' => 'required|date',
         ]);
-        return redirect()->route('showAbsensi')->with('success', 'Absensi dibuat');
+    
+        // Cek apakah absensi sudah ada untuk murid pada tanggal yang sama
+        $existingAbsensi = Absensi::where('kode_murid', $request->kode_murid)
+            ->whereDate('tanggal_absensi', $request->tanggal_absensi)
+            ->first();
+    
+        if ($existingAbsensi) {
+            return redirect()->route('tambahAbsensi')->with('error', 'Murid sudah diabsen pada tanggal ini');
+        }
+    
+        // Simpan data absensi
+        Absensi::create([
+            'kode_murid' => $validated['kode_murid'],
+            'status_kehadiran' => $validated['status_kehadiran'],
+            'tanggal_absensi' => $validated['tanggal_absensi'],
+        ]);
+    
+        return redirect()->route('showAbsensi')->with('success', 'Absensi berhasil ditambahkan');
+    }
+    
+    public function jadwal(Request $request)
+    {
+
+        $dojo = Dojo::all();
+        $filter = $request->input('dojo'); // Inisialisasi variabel $filter dengan nilai dari input 'dojo' pada request
+        $timeFilter = $request->input('waktu'); // Inisialisasi variabel $timeFilter dengan nilai dari input 'waktu' pada request
+
+        $query = Jadwal::query();
+
+        // Filter berdasarkan dojo
+        if ($request->has('dojo')) {
+            $query->where('kode_dojo', $filter); // Gunakan $filter untuk filtering
+        }
+
+        $jadwal = $query->paginate(2);
+
+        return view('pelatih.p_jadwal', ['dojo' => $dojo, 'jadwal' => $jadwal, 'filter' => $filter]);
     }
 
-    // public function jadwal()
-    // {
-    //     return view('pelatih.p_jadwal');
-    // }
+    public function filterJadwal(Request $request)
+    {
+        $dojo = Dojo::all();
+        $jadwal = Jadwal::query();
+        $query = Jadwal::query();
+
+        $filter = [
+            'dojo' => $request->input('dojo'),
+            'waktu' => $request->input('waktu'),
+        ];
+
+        if ($filter['dojo']) {
+            $jadwal->where('kode_dojo', $filter['dojo']);
+        }
+
+        $jadwal = $query->paginate(10);
+
+        return view('pelatih.p_jadwal', ['dojo' => $dojo, 'jadwal' => $jadwal, 'filter' => $filter,]);
+    }
+
 
     public function sertifikat()
     {
