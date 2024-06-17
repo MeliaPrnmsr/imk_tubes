@@ -113,6 +113,9 @@ Route::group(['middleware' => ['pelatih']], function () {
         Route::get('/tambah_absensi', [PelatihController::class, 'tambahAbsensi'])->name('tambahAbsensi');
         Route::post('/store_absensi', [PelatihController::class, 'storeAbsensi'])->name('storeAbsensi');
         Route::get('/delete/{id}', [PelatihController::class, 'delete_absensi'])->name('delete.absensi');
+        Route::get('/absensi/export-excel', [PelatihController::class, 'exportExcel'])->name('exportExcel');
+        Route::get('/absensi/export-pdf', [PelatihController::class, 'exportPdf'])->name('exportPdf');
+
 
         Route::get('/sertifikat', [PelatihController::class, 'sertifikat'])->name('sertifikat');
         Route::get('/detailsertifikat/{id}', [PelatihController::class, 'detailSertifikat'])->name('detailsertifikat');
@@ -122,7 +125,7 @@ Route::group(['middleware' => ['pelatih']], function () {
 
         Route::get('/jadwal', [PelatihController::class, 'jadwal'])->name('jadwal');
         Route::get('/filterjadwalpelatih', [PelatihController::class, 'filterJadwal'])->name('filter.jadwal.pelatih');
-        
+
         Route::get('/datamurid', [PelatihController::class, 'dataMurid'])->name('datamurid');
         Route::get('/editmurid/{id}', [PelatihController::class, 'editMurid'])->name('editmurid');
         Route::post('/updatemurid/{id}', [PelatihController::class, 'updateMurid'])->name('updatemurid');

@@ -16,6 +16,11 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+use App\Exports\AbsensiExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+
 class PelatihController extends Controller
 {
 
@@ -30,8 +35,8 @@ class PelatihController extends Controller
     public function showAbsensi(Request $request)
     {
         $query = Absensi::join('murid', 'absensi.kode_murid', '=', 'murid.kode_murid')
-                        ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
-                        ->select('absensi.*', 'murid.nama_murid', 'murid.sabuk', 'dojo.nama_dojo');
+            ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
+            ->select('absensi.*', 'murid.nama_murid', 'murid.sabuk', 'dojo.nama_dojo');
 
         if ($request->has('dojo') && $request->dojo != 'all') {
             $query->where('murid.kode_dojo', $request->dojo);
@@ -39,7 +44,7 @@ class PelatihController extends Controller
 
         if ($request->has('bulan') && !empty($request->bulan)) {
             $query->whereMonth('absensi.tanggal_absensi', Carbon::parse($request->bulan)->month)
-                  ->whereYear('absensi.tanggal_absensi', Carbon::parse($request->bulan)->year);
+                ->whereYear('absensi.tanggal_absensi', Carbon::parse($request->bulan)->year);
         }
 
         if ($request->has('tanggal') && !empty($request->tanggal)) {
@@ -53,10 +58,11 @@ class PelatihController extends Controller
     }
 
 
-    public function delete_absensi($id){
+    public function delete_absensi($id)
+    {
 
         $absensi = absensi::findOrFail($id);
-        $absensi->delete(); 
+        $absensi->delete();
 
         return redirect()->route('showAbsensi')->with('success', 'Absensi berhasil dihapus');
     }
@@ -65,7 +71,7 @@ class PelatihController extends Controller
     public function tambahAbsensi(Request $request)
     {
         $query = Murid::join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
-                      ->select('murid.*', 'dojo.nama_dojo');
+            ->select('murid.*', 'dojo.nama_dojo');
 
         if ($request->has('dojo') && $request->dojo != 'all') {
             $query->where('murid.kode_dojo', $request->dojo);
@@ -84,26 +90,76 @@ class PelatihController extends Controller
             'status_kehadiran' => 'required|in:hadir,tidak hadir',
             'tanggal_absensi' => 'required|date',
         ]);
-    
+
         // Cek apakah absensi sudah ada untuk murid pada tanggal yang sama
         $existingAbsensi = Absensi::where('kode_murid', $request->kode_murid)
             ->whereDate('tanggal_absensi', $request->tanggal_absensi)
             ->first();
-    
+
         if ($existingAbsensi) {
             return redirect()->route('tambahAbsensi')->with('error', 'Murid sudah diabsen pada tanggal ini');
         }
-    
+
         // Simpan data absensi
         Absensi::create([
             'kode_murid' => $validated['kode_murid'],
             'status_kehadiran' => $validated['status_kehadiran'],
             'tanggal_absensi' => $validated['tanggal_absensi'],
         ]);
-    
+
         return redirect()->route('showAbsensi')->with('success', 'Absensi berhasil ditambahkan');
     }
-    
+
+    public function exportExcel(Request $request)
+    {
+        $query = Absensi::join('murid', 'absensi.kode_murid', '=', 'murid.kode_murid')
+            ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
+            ->select('absensi.kode_murid', 'murid.nama_murid', 'murid.sabuk', 'absensi.status_kehadiran', 'dojo.nama_dojo', 'absensi.tanggal_absensi');
+
+        if ($request->has('dojo') && $request->dojo != 'all') {
+            $query->where('murid.kode_dojo', $request->dojo);
+        }
+
+        if ($request->has('bulan') && !empty($request->bulan)) {
+            $query->whereMonth('absensi.tanggal_absensi', Carbon::parse($request->bulan)->month)
+                ->whereYear('absensi.tanggal_absensi', Carbon::parse($request->bulan)->year);
+        }
+
+        if ($request->has('tanggal') && !empty($request->tanggal)) {
+            $query->whereDate('absensi.tanggal_absensi', $request->tanggal);
+        }
+
+        $data = $query->get()->toArray();
+
+        $export = new AbsensiExport($data);
+        return $export->export();
+    }
+
+    public function exportPdf(Request $request)
+    {
+        $query = Absensi::join('murid', 'absensi.kode_murid', '=', 'murid.kode_murid')
+            ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
+            ->select('absensi.kode_murid', 'murid.nama_murid', 'murid.sabuk', 'absensi.status_kehadiran', 'dojo.nama_dojo', 'absensi.tanggal_absensi');
+
+        if ($request->has('dojo') && $request->dojo != 'all') {
+            $query->where('murid.kode_dojo', $request->dojo);
+        }
+
+        if ($request->has('bulan') && !empty($request->bulan)) {
+            $query->whereMonth('absensi.tanggal_absensi', Carbon::parse($request->bulan)->month)
+                ->whereYear('absensi.tanggal_absensi', Carbon::parse($request->bulan)->year);
+        }
+
+        if ($request->has('tanggal') && !empty($request->tanggal)) {
+            $query->whereDate('absensi.tanggal_absensi', $request->tanggal);
+        }
+
+        $data = $query->get();
+        $pdf = PDF::loadView('pelatih.exports.pdf_absensi', compact('data'));
+        return $pdf->download('absensi.pdf');
+    }
+
+
     public function jadwal(Request $request)
     {
 
