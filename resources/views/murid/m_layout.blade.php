@@ -15,16 +15,16 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-poppins">
+<body class="font-poppins dark:bg-gray-900 dark:text-white">
 
-    <nav class="fixed top-0 z-50 w-full bg-white border-b border-black dark:bg-black">
+    <nav class="fixed top-0 z-50 w-full bg-white border-b border-black dark:bg-gray-900 dark:border-white">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 {{-- Logo and sidebar button --}}
                 <div class="flex items-center justify-start rtl:justify-end">
                     <a href="/" class="flex ms-2 md:me-24">
                         <img src="{{ asset('asset/img/logo_perguruan.png') }}" class="h-12 me-3" alt="Logo" />
-                        <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap">INSHOKAI</span>
+                        <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">INSHOKAI</span>
                     </a>
                 </div>
                 {{-- Logo and sidebar button END --}}
@@ -33,7 +33,7 @@
                 <div class="flex items-center ">
                     {{-- ICON --}}
                     <a href="javascript:void(0);"
-                        class="flex rounded-full bg-gray-300 p-3 mx-1 hover:bg-red-700 hover:text-white tooltip tooltip-bottom"
+                        class="flex rounded-full bg-gray-300 p-3 mx-1 hover:bg-red-700 hover:text-white tooltip tooltip-bottom dark:text-black"
                         data-tip="Mode Gelap">
                         <label class="swap swap-rotate">
                             <!-- moon icon -->
@@ -54,7 +54,7 @@
 
                     @isset(auth()->user()->id)
                     <a href="/murid/{{ auth()->user()->id }}/profile"
-                        class="flex rounded-full bg-gray-300 p-3 mx-1 hover:bg-red-700 hover:text-white tooltip tooltip-bottom dark:bg-black"
+                        class="flex rounded-full bg-gray-300 p-3 mx-1 hover:bg-red-700 hover:text-white tooltip tooltip-bottom dark:text-black"
                         data-tip="Profil">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
@@ -64,7 +64,7 @@
                     </a>
                     @endisset
                     <button onclick="my_modal_3.showModal()"
-                        class="flex rounded-full bg-gray-300 p-3 mx-1 hover:bg-red-700 hover:text-white tooltip tooltip-bottom"
+                        class="flex rounded-full bg-gray-300 p-3 mx-1 hover:bg-red-700 hover:text-white tooltip tooltip-bottom dark:text-black"
                         data-tip="Keluar">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5">
@@ -112,14 +112,14 @@
 
     @isset($murids)
     <aside id="logo-sidebar"
-        class="fixed top-0 left-0 z-40 w-18 h-screen pt-24  bg-white border-r border-black text-white flex-shrink-0 transition-all"
+        class="fixed top-0 left-0 z-40 w-18 h-screen pt-24  bg-white border-r border-black text-white flex-shrink-0 transition-all dark:bg-gray-900 dark:border-white"
         aria-label="Sidebar">
-        <div class="h-full px-3 pb-4 overflow-y q-auto bg-white flex flex-col justify-between">
+        <div class="h-full px-3 pb-4 overflow-y q-auto bg-white flex flex-col justify-between dark:bg-gray-900">
             <ul class="space-y-3 font-medium">
                 <li>
 
                     <a href="{{ route('murid.dashboard', ['users_id' => auth()->user()->id]) }}"
-                        class="flex items-center p-3 text-black rounded-xl  hover:bg-red-700  hover:text-white group {{ request()->routeIS('murid.dashboard') ? 'bg-red-700 text-white' : ' ' }}">
+                        class="flex items-center p-3 text-black dark:text-white rounded-xl  hover:bg-red-700  hover:text-white group {{ request()->routeIS('murid.dashboard') ? 'bg-red-700 text-white' : ' ' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5 flex-shrink-0">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -132,7 +132,7 @@
                 <li>
 
                     <a href="{{ route('murid.jadwal', ['users_id' => auth()->user()->id]) }}"
-                        class="flex items-center p-3 text-black rounded-xl  hover:bg-red-700  hover:text-white group {{ request()->routeIS('murid.jadwal') ? 'bg-red-700 text-white' : ' ' }}">
+                        class="flex items-center p-3 text-black dark:text-white rounded-xl  hover:bg-red-700  hover:text-white group {{ request()->routeIS('murid.jadwal') ? 'bg-red-700 text-white' : ' ' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5 flex-shrink-0">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -145,7 +145,7 @@
 
                 <li>
                     <a href="{{ route('murid.materi', ['users_id' => auth()->user()->id]) }}"
-                        class="flex items-center p-3 text-black rounded-xl hover:bg-red-700  hover:text-white group {{ request()->routeIS('murid.materi') ? 'bg-red-700 text-white' : ' ' }}">
+                        class="flex items-center p-3 text-black dark:text-white rounded-xl hover:bg-red-700  hover:text-white group {{ request()->routeIS('murid.materi') ? 'bg-red-700 text-white' : ' ' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5 flex-shrink-0">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -157,7 +157,7 @@
 
                 <li>
                     <a href="{{ route('forum', ['users_id' => auth()->user()->id]) }}"
-                        class="flex items-center p-3 text-black rounded-xl hover:bg-red-700  hover:text-white group {{ request()->routeIS('forum') ? 'bg-red-700 text-white' : ' ' }}">
+                        class="flex items-center p-3 text-black dark:text-white rounded-xl hover:bg-red-700  hover:text-white group {{ request()->routeIS('forum', ['users_id' => auth()->user()->id]) || request()->routeIS('forum2', ['users_id' => auth()->user()->id]) ? 'bg-red-700 text-white' : ' ' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-5 h-5 flex-shrink-0">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -168,7 +168,7 @@
                 </li>
 
                 <div class="flex justify-center">
-                    <label class="p-3 rounded-xl text-black swap swap-rotate hover:bg-red-700 hover:text-white">
+                    <label class="p-3 rounded-xl text-black swap swap-rotate hover:bg-red-700 hover:text-white dark:text-white">
                         <!-- this hidden checkbox controls the state -->
                         <input type="checkbox" class="hidden" id="toggle-btn"/>
                         <!-- hamburger icon -->

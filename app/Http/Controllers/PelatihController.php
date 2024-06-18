@@ -107,33 +107,9 @@ class PelatihController extends Controller
             'tanggal_absensi' => $validated['tanggal_absensi'],
         ]);
 
-        return redirect()->route('showAbsensi')->with('success', 'Absensi berhasil ditambahkan');
+        return redirect()->route('tambahAbsensi')->with('success', 'Absensi berhasil ditambahkan');
     }
 
-    // public function exportExcel(Request $request)
-    // {
-    //     $query = Absensi::join('murid', 'absensi.kode_murid', '=', 'murid.kode_murid')
-    //         ->join('dojo', 'murid.kode_dojo', '=', 'dojo.kode_dojo')
-    //         ->select('absensi.kode_murid', 'murid.nama_murid', 'murid.sabuk', 'absensi.status_kehadiran', 'dojo.nama_dojo', 'absensi.tanggal_absensi');
-
-    //     if ($request->has('dojo') && $request->dojo != 'all') {
-    //         $query->where('murid.kode_dojo', $request->dojo);
-    //     }
-
-    //     if ($request->has('bulan') && !empty($request->bulan)) {
-    //         $query->whereMonth('absensi.tanggal_absensi', Carbon::parse($request->bulan)->month)
-    //             ->whereYear('absensi.tanggal_absensi', Carbon::parse($request->bulan)->year);
-    //     }
-
-    //     if ($request->has('tanggal') && !empty($request->tanggal)) {
-    //         $query->whereDate('absensi.tanggal_absensi', $request->tanggal);
-    //     }
-
-    //     $data = $query->get()->toArray();
-
-    //     $export = new AbsensiExport($data);
-    //     return $export->export();
-    // }
 
     public function exportPdf(Request $request)
     {
@@ -302,7 +278,6 @@ class PelatihController extends Controller
     public function profilPelatih()
     {
         $data = pelatih::findOrFail(1);
-        // dd($data);
         return view('pelatih.p_profil', compact('data'));
     }
 

@@ -40,7 +40,7 @@
                         <thead class="border-b border-neutral-200 font-medium md:text-l bg-red-700">
                             <tr class="text-white">
                                 <th scope="col" class="px-6 py-4">Tanggal</th>
-                                <th scope="col" class="px-6 py-4 text-center">Waktu</th>
+                                <th scope="col" class="px-6 py-4 ">Waktu</th>
                                 <th scope="col" class="px-6 py-4">Lokasi</th>
 
                             </tr>
@@ -50,7 +50,7 @@
                                 @if (!$filter || ($filter['dojo'] == $item->kode_dojo && $filter['waktu'] == 'minggu'))
                                     <tr class="border-b border-neutral-200">
                                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $item->tanggal }}</td>
-                                        <td class="whitespace-nowrap px-6 py-4 font-medium text-center">
+                                        <td class="whitespace-nowrap px-6 py-4 font-medium">
                                             {{ $item->jam_mulai }} -
                                             {{ $item->jam_selesai }}</td>
                                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $item->tempat }}</td>

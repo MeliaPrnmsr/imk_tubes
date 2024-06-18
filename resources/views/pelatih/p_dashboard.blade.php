@@ -2,20 +2,17 @@
 
 @section('content')
 
-<div class="max-w-5xl mx-auto bg-gray-300 p-4 rounded-lg shadow-lg flex items-start space-x-20 ">
-    <!-- Konten Utama -->
-    <div class="w-2/3">
-        <h2 class="md:text-2xl text-sm font-semibold mb-4">SELAMAT DATANG, {{ auth()->user()->name }}</h2>
-        <p class="text-gray-700 mb-4 text-base ">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
-        </p>
+<div class="flex items-center border p-4 border-black mt-4 rounded-lg shadow-lg">
+    <!-- Left Column - Text -->
+    <div class="p-4 ">
+        <div class="text-align">
+            <h2 class="text-lg text-black md:text-2xl font-bold">Halo, Pelatih {{ auth()->user()->name }} !</h2>
+            <p class="text-base text-black">Semangat melatih dan membimbing para murid dalam perjalanan karate mereka. Osu!</p>
+        </div>
     </div>
-    <!-- Gambar di Sisi Kanan -->
-    <div class="flex-shrink m-4">
-        <img src="{{ asset('asset/img/PELATIH.png') }}" alt="Pelatih"
-            class="md:h-40 md:w-autow-4 h-4 md object-cover rounded-lg">
+    <!-- Right Column - Image -->
+    <div class="hidden md:block">
+        <img src="{{ asset('asset/img/welcome.jpg') }}" alt="Gambar Murid" class="w-80 flex justify-end">
     </div>
 </div>
 
@@ -23,56 +20,54 @@
 <br>
 
 <!-- Recently Accesss Course -->
-<h1 class="text-3xl font-bold ml-4">Recently Access Course</h1>
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-12 mt-5">
-    <div class="bg-gray-200 p-2 rounded-3xl shadow-md flex items-start space-x-4 ">
-        <div class="flex-grow">
-            <div class="bg-red-700 p-4 rounded-2xl shadow-md text-white">
-                <h2 class="text-xl font-bold mb-2">Kihon (Gerakan Dasar)</h2>
-                <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
-                    Praesent libero.</p>
+<div class="text-black py-2 mt-4">
+    <h2 class="text-2xl font-bold mb-4 text-left">Baru Saja Diakses</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Course 1 -->
+        <div class="bg-gray-200 rounded-lg shadow-md flex overflow-hidden h-48 md:h-40">
+            <div class="w-2/5 md:w-1/2 order-2 md:order-none">
+                <img src="{{asset('asset/img/sabuk putih.png')}}" alt="Course 1" class="">
+            </div>
+            <div class="w-3/5 md:w-1/2 p-4 flex flex-col justify-between order-1 md:order-none">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2">Jenis Materi 1</h3>
+                    <p class="text-xs gray-800 mb-4">This is a brief description of course. It offers advanced insights
+                    </p>
+                </div>
+                <a href="course1.html"
+                    class="inline-block bg-red-700 text-white py-1 px-4 rounded text-center hover:bg-red-800">Go to
+                    Course</a>
             </div>
         </div>
-        <div class="flex flex-col items-center">
-            <div class="flex-shrink-0 mt-6">
-                <img src="{{ asset('asset/img/kihon.png') }}" alt="Pelatih"
-                    class="h-20 w-full sm:w-80 object-cover rounded-lg">
+        <!-- Course 2 -->
+        <div class="bg-gray-200 rounded-lg shadow-md flex overflow-hidden h-48 md:h-40">
+            <div class="w-2/5 md:w-1/2 order-2 md:order-none">
+                <img src="{{asset('asset/img/sabuk putih.png')}}" alt="Course 1" class="">
             </div>
-            <div class="mt-2">
-                <a href="/pelatih/materi" class="text-red-700 hover:underline">Masuk</a>
-            </div>
-        </div>
-    </div>
-    <div class="bg-gray-200 p-2 rounded-3xl shadow-md flex items-start space-x-4 ">
-        <div class="flex-grow">
-            <div class="bg-red-700 p-4 rounded-2xl shadow-md text-white">
-                <h2 class="text-xl font-bold mb-2">Kihon (Gerakan Dasar)</h2>
-                <p class="text-gray-700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
-                    Praesent libero.</p>
-            </div>
-        </div>
-        <div class="flex flex-col items-center">
-            <div class="flex-shrink-0 mt-6">
-                <img src="{{ asset('asset/img/kihon.png') }}" alt="Pelatih"
-                    class="h-20 w-full sm:w-80 object-cover rounded-lg">
-            </div>
-            <div class="mt-2">
-                <a href="#" class="text-red-700 hover:underline">Masuk</a>
+            <div class="w-3/5 md:w-1/2 p-4 flex flex-col justify-between order-1 md:order-none">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2">Course Title 1</h3>
+                    <p class="text-xs gray-800 mb-4">This is a brief description of course. It offers advanced insights
+                    </p>
+                </div>
+                <a href="course1.html"
+                    class="inline-block bg-red-700 text-white py-1 px-4 rounded text-center hover:bg-red-800">Go to
+                    Course</a>
             </div>
         </div>
     </div>
 </div>
 
 <br>
-<div class="container mx-auto">
+<div class="mt-4">
     <header class="bg-white text-black p-5">
-        <h1 class="text-3xl font-bold text-left border-b-4 border-red-700 pb-2">Jadwal Saya Hari Ini</h1>
+        <h1 class="text-2xl font-bold text-left border-b-4 border-red-700 pb-2">Jadwal Saya Hari Ini</h1>
     </header>
 
     <div class="grid grid-cols-1 sm:grid-cols-1 gap-1 mt-0">
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-red-700 dark:text-gray-100">
+            <table class="w-full text-sm text-left  dark:">
+                <thead class="text-xs  uppercase bg-gray-50 dark:bg-red-700 dark:">
                     <tr>
                         <th scope="col" class="py-3 px-6">Hari/Tanggal</th>
                         <th scope="col" class="py-3 px-6">Waktu</th>

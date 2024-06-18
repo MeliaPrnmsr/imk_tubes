@@ -26,7 +26,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'chung mhyung',
                 'email' => 'mountht@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -34,7 +34,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'perwira satria',
                 'email' => 'satria513@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -42,7 +42,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Alicia',
                 'email' => 'murid1@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -50,7 +50,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Jason bourne',
                 'email' => 'cia321@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -58,7 +58,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Morgan le fay',
                 'email' => 'morgann@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -66,7 +66,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'kenichi',
                 'email' => 'kenix@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -74,7 +74,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'yuka',
                 'email' => 'ykaa@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -82,7 +82,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Lee Shi Woon',
                 'email' => 'LeeShi@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -90,7 +90,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Park Hyung Seok',
                 'email' => 'ptjj@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -98,7 +98,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Nero',
                 'email' => 'deadbeat@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -106,7 +106,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Noa',
                 'email' => 'DDD@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -114,7 +114,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Rio',
                 'email' => 'NNN@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'murid',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -123,7 +123,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Goo mon ryong',
                 'email' => 'GoMonRy@example.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'pelatih',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -131,7 +131,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'Jonggun',
                 'email' => 'Gun@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'pelatih',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -139,7 +139,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'vergil',
                 'email' => 'powerr@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'pelatih',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -147,7 +147,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'scathach',
                 'email' => 'gaebolg@gmail.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'pelatih',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -156,7 +156,7 @@ class userSeeder extends Seeder
             [
                 'name' => 'The one',
                 'email' => 'admin@god.com',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('rahasia'),
                 'role' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),

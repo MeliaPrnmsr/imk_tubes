@@ -123,7 +123,7 @@ class MuridController extends Controller
                 ->orWhere('users_id_2', $murid->user_id);
         })->get();
 
-        return view('murid.m_forum', compact('interaksis', 'pelatih'));
+        return view('murid.m_forum', compact('interaksis', 'pelatih', 'users_id'));
     }
 
     public function store_forum_m(Request $request, $users_id)

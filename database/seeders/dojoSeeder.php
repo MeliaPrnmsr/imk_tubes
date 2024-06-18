@@ -21,9 +21,9 @@ class dojoSeeder extends Seeder
 
         $data = [
             [
-                'nama_dojo' => 'Mount hua',
+                'nama_dojo' => 'Dojo Al-Amin',
                 'alamat_dojo' => 'Address A',
-                'pengcab' => 'Pengcab A',
+                'pengcab' => 'Pengcab Medan',
                 'tanggal_berdiri' => '2020-01-01',
                 'status' => 'aktif',
                 'created_at' => now(),
@@ -32,7 +32,7 @@ class dojoSeeder extends Seeder
             [
                 'nama_dojo' => 'Dojo B',
                 'alamat_dojo' => 'Address B',
-                'pengcab' => 'Pengcab B',
+                'pengcab' => 'Pengcab Deli Serdang',
                 'tanggal_berdiri' => '2021-02-01',
                 'status' => 'aktif',
                 'created_at' => now(),
@@ -40,8 +40,8 @@ class dojoSeeder extends Seeder
             ],
             [
                 'nama_dojo' => 'Dojo C',
-                'alamat_dojo' => 'Address B',
-                'pengcab' => 'Pengcab B',
+                'alamat_dojo' => 'Jalan Raya',
+                'pengcab' => 'Pengcab Binjai',
                 'tanggal_berdiri' => '2021-02-01',
                 'status' => 'aktif',
                 'created_at' => now(),

@@ -24,7 +24,7 @@ class pelatihSeeder extends Seeder
             [
                 'nama_pelatih' => 'Goo mon ryong',
                 'tanggal_lahir' => '1980-01-01',
-                'pengcab' => 'Pengcab 1',
+                'pengcab' => 'Pengcab Medan',
                 'dan' => '5',
                 'nomor_telepon' => '82',
                 'Alamat' => 'korea',
@@ -35,7 +35,7 @@ class pelatihSeeder extends Seeder
             [
                 'nama_pelatih' => 'Jonggun',
                 'tanggal_lahir' => '1990-03-03',
-                'pengcab' => 'Pengcab 3',
+                'pengcab' => 'Pengcab Binjai',
                 'dan' => '8',
                 'nomor_telepon' => '80',
                 'Alamat' => 'korea',
@@ -46,7 +46,7 @@ class pelatihSeeder extends Seeder
             [
                 'nama_pelatih' => 'vergil',
                 'tanggal_lahir' => '1975-04-04',
-                'pengcab' => 'Pengcab 4',
+                'pengcab' => 'Pengcab Medan',
                 'dan' => '6',
                 'nomor_telepon' => '1',
                 'Alamat' => 'europe',
@@ -57,7 +57,7 @@ class pelatihSeeder extends Seeder
             [
                 'nama_pelatih' => 'scathach',
                 'tanggal_lahir' => '1608-12-02',
-                'pengcab' => 'Pengcab 2',
+                'pengcab' => 'Pengcab Deli Serdang',
                 'dan' => '4',
                 'nomor_telepon' => '000-',
                 'Alamat' => 'Ulter',

@@ -129,6 +129,7 @@ Route::group(['middleware' => ['pelatih']], function () {
         Route::get('/datamurid', [PelatihController::class, 'dataMurid'])->name('datamurid');
         Route::get('/editmurid/{id}', [PelatihController::class, 'editMurid'])->name('editmurid');
         Route::post('/updatemurid/{id}', [PelatihController::class, 'updateMurid'])->name('updatemurid');
+        
         Route::get('/profil', [PelatihController::class, 'profilPelatih'])->name('profilPelatih');
         Route::put('/updateprofil/{id}', [PelatihController::class, 'updateProfil'])->name('updateProfil');
         Route::get('/materi', [PelatihController::class, 'materi'])->name('materiPelatih');

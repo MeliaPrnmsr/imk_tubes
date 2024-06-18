@@ -19,17 +19,18 @@
         </div>
 
         <div class="bg-white rounded-lg shadow-lg p-6 flex items-center">
-            <form action="{{ route('evaluasi2') }}" method="POST">
+            <form action="{{ route('evaluasi2') }}" method="POST" class="w-full">
                 @csrf
-                <input type="text" name="isi_pesan" placeholder="Ketik pesan Anda..."
-                    class="flex-grow border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 mr-2">
-                <select name="users_id_2"
+                <textarea name="isi_pesan" placeholder="Ketik pesan Anda..." class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 mr-2"></textarea>
+                <div class="flex justify-between">
+                    <select name="users_id_2"
                     class="flex-grow border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2 mr-2">
                     @foreach ($murids as $murid)
                         <option value="{{ $murid->user_id }}">{{ $murid->nama_murid }}</option>
                     @endforeach
                 </select>
                 <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Kirim</button>
+                </div>
             </form>
         </div>
     </div>

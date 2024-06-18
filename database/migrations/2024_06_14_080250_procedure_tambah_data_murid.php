@@ -39,7 +39,7 @@ return new class extends Migration
                 SET id_user_baru = LAST_INSERT_ID();
 
                 -- Insert into murid table
-                INSERT INTO `murid`(`nama_murid`, `tempat_lahir`, `tanggal_lahir`, `nomor_telepon_rumah`, `nama_orang_tua_wali`, `pekerjaan_orang_tua`, `Pendidikan_terakhir`, `foto`, `sabuk`, `status`, `users_id`, `kode_dojo`, `created_at`, `updated_at`)
+                INSERT INTO `murid`(`nama_murid`, `tempat_lahir`, `tanggal_lahir`, `nomor_telepon_rumah`, `nama_orang_tua_wali`, `pekerjaan_orang_tua`, `Pendidikan_terakhir`, `foto`, `sabuk`, `status`, `user_id`, `kode_dojo`, `created_at`, `updated_at`)
                 VALUES (p_name, p_tempat_lahir, p_tanggal_lahir, p_nomor_telepon_rumah, p_nama_orang_tua_wali, p_pekerjaan_orang_tua, p_pendidikan_terakhir, p_foto, p_sabuk, p_status, id_user_baru, p_kode_dojo, NOW(), NOW());
                 -- SET id_murid_baru = LAST_INSERT_ID();
             END

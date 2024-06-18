@@ -613,10 +613,9 @@ class AdminController extends Controller
     }
     // MATERI
     // MATERI
-    public function materi($belt)
+    public function materi()
     {
-        $materi = Materi::where('belt', $belt)->get();
-        return view('admin.a_materi', compact('materi', 'belt'));
+        return view('admin.a_materi');
     }
 
     public function datamateri()
