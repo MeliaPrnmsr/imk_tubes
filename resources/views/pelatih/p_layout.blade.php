@@ -80,7 +80,7 @@
     <div class="h-full px-3 pb-4 overflow-y-auto bg-gray-200 flex flex-col justify-between">
       <ul class="space-y-3 font-medium">
         <li>
-          <a href="#"
+          <a href="/pelatih/dashboard"
             class="flex items-center p-3 text-black rounded-2xl  hover:bg-red-700  hover:text-white active:bg-red-700  active:text-white group">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-5 h-5 flex-shrink-0">
@@ -92,7 +92,7 @@
         </li>
 
         <li>
-          <a href="#"
+          <a href="/pelatih/jadwal"
             class="flex items-center p-3 text-black rounded-2xl  hover:bg-red-700  hover:text-white  active:bg-red-700  active:text-white  group">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-5 h-5 flex-shrink-0">
@@ -121,14 +121,14 @@
         </li>
 
         <div class="text-left mt-2 w-4/5 mx-auto hidden" id="sub-keloladata">
-          <h1 class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black"><a href="#">Murid</a></h1>
-          <h1 class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black"><a href="#">Absensi</a></h1>
-          <h1 class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black"><a href="#">Evaluasi</a>
+          <h1 class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black"><a href="/pelatih/datamurid">Murid</a></h1>
+          <h1 class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black"><a href="/pelatih/absensi">Absensi</a></h1>
+          <h1 class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black"><a href="/pelatih/evaluasi">Evaluasi</a>
           </h1>
         </div>
 
-        <li>
-          <a href="#"
+        {{-- <li>
+          <a href="/pelatih/sertifikat"
             class="flex items-center p-3 text-black rounded-2xl   hover:bg-red-700  hover:text-white  active:bg-red-700  active:text-white  group">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-5 h-5 flex-shrink-0">
@@ -137,7 +137,7 @@
             </svg>
             <span data-toggle="extend" class="ms-3 overflow-y-auto hidden">Sertifikat</span>
           </a>
-        </li>
+        </li> --}}
 
         <div class="flex justify-center">
           <label class="btn btn-circle swap swap-rotate hover:bg-red-700 hover:text-white" >

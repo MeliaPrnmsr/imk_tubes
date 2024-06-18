@@ -12,16 +12,17 @@
                             <label for="dojo" class="text-sm md:text-base mr-2 font-semibold">Pilih Dojo:</label>
                             <select id="dojo" name="dojo" onchange="this.form.submit()"
                                 class="text-sm md:text-base border border-gray-300 rounded-lg py-2 px-4 mr-4 focus:outline-none focus:ring-2 focus:ring-gray-700">
-                                <option value="all">
-                                    All</option>
+                                <option value="all">All</option>
                                 @foreach ($dojo as $item)
-                                    <option value="{{ $item->kode_dojo }}">{{ $item->nama_dojo }}</option>
+                                    <option value="{{ $item->kode_dojo }}" {{ request('dojo') == $item->kode_dojo ? 'selected' : '' }}>
+                                        {{ $item->nama_dojo }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="w-full sm:w-auto flex items-center">
                             <div class="relative w-full sm:w-64">
-                                <input id="nama" name="nama" type="text" placeholder="Cari nama murid"
+                                <input id="nama" name="nama" type="text" placeholder="Cari nama murid" value="{{ request('nama') }}"
                                     class="text-sm md:text-base border border-gray-300 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-700" />
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"
@@ -70,7 +71,6 @@
                                 </td>
                             </tr>
                         @endforeach
-                        <!-- Repeat similar rows for other students -->
                     </tbody>
                 </table>
             </div>

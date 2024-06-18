@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Dojo;
 use App\Models\Murid;
+use App\Models\Pelatih;
 use App\Models\Jadwal;
 use App\Models\Materi;
-use App\Models\interaksi;
 
-use Carbon\Carbon;
+use App\Models\interaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\MuridUpdateRequest;
 
@@ -104,14 +106,24 @@ class MuridController extends Controller
 
     public function forum_m($users_id)
     {
-        // Memuat murid agar dapat memanggil id saja
-        $murids = Murid::select('user_id')->where('user_id', $users_id)->firstOrFail();
+        // Ambil murid yang sedang login
+        $murid = Murid::where('user_id', Auth::id())->first();
 
-        // ID murid yang diambil dari URL
-        $interaksis = Interaksi::where('users_id_1', $users_id)
-            ->orWhere('users_id_2', $users_id)
-            ->get();
-        return view('murid.m_forum', compact('murids', 'interaksis', 'users_id'));
+        // Ambil pelatih dari dojo yang sama
+        $pelatih = Pelatih::whereHas('dojo', function ($query) use ($murid) {
+            $query->where('pelatih_dojo.kode_dojo', $murid->kode_dojo);
+        })->first();
+
+        // Ambil interaksi terkait pelatih dan murid dari dojo yang sama
+        $interaksis = Interaksi::where(function ($query) use ($murid) {
+            $query->where('users_id_1', Auth::id())
+                ->orWhere('users_id_2', Auth::id());
+        })->where(function ($query) use ($murid) {
+            $query->where('users_id_1', $murid->user_id)
+                ->orWhere('users_id_2', $murid->user_id);
+        })->get();
+
+        return view('murid.m_forum', compact('interaksis', 'pelatih'));
     }
 
     public function store_forum_m(Request $request, $users_id)
@@ -120,15 +132,15 @@ class MuridController extends Controller
             'isi_pesan' => 'required|string|max:255',
         ]);
 
-        // Pengirim adalah murid (user_id dari URL) dan penerima selalu guru (ID 2)
         Interaksi::create([
-            'users_id_1' => $users_id,
-            'users_id_2' => 3,  // Pelatih
+            'users_id_1' => Auth::id(),
+            'users_id_2' => $users_id, // ID Pelatih
             'isi_pesan' => $request->input('isi_pesan'),
         ]);
 
-        return redirect()->route('forum', ['users_id' => $users_id])->with('success', 'Pesan berhasil dikirim');
+        return redirect()->route('forum2', ['users_id' => $users_id])->with('success', 'Pesan berhasil dikirim');
     }
+
 
 
 

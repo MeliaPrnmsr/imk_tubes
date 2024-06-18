@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Dojo;
 use App\Models\Event;
+use App\Models\Informasi;
 use App\Models\Murid;
 use App\Models\Jadwal;
 use App\Models\Materi;
@@ -27,7 +28,9 @@ class AdminController extends Controller
         $materiCount = Materi::count();
 
         // Ambil data event mendatang
-        $upcomingEvents = Event::where('tanggal_informasi', '>=', now())->get();
+        $upcomingEvents = informasi::where('tanggal_informasi', '>=', now())->get();
+
+        // $pendaftaranEvents = Pendaftaran::where('tanggal_pendaftaran', '>=', now())->get();
 
         return view('admin.a_dashboard', compact('muridCount', 'pelatihCount', 'dojoCount', 'materiCount', 'upcomingEvents'));
     }

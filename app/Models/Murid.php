@@ -11,7 +11,6 @@ class Murid extends Model
 
     protected $table = 'murid';
     protected $primaryKey = 'kode_murid';
-
     protected $guarded = ['kode_murid'];
 
     public function user()
