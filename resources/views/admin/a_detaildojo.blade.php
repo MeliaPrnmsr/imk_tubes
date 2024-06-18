@@ -15,7 +15,6 @@
 
     <div class="w-full">
         <form action="">
-            @csrf
             <div class="grid md:grid-cols-2 gap-6 p-6">
                 <div>
                     <label for="nama_dojo" class=" text-sm font-medium mb-3">Nama Dojo</label>
@@ -60,11 +59,8 @@
             </div>  
 
             <div class="flex justify-center">
-                <button class="bg-red-700 p-3 m-2 rounded-lg text-white md:w-1/5 text-sm">
-                    <a href="{{ route('edit.dojo', ['id' => $dojo->kode_dojo]) }}"
-                        class="text-white no-underline">Edit</a>
-                </button>
-                <button class="bg-gray-500 p-3 m-2 rounded-lg text-white md:w-1/5 text-sm">Hapus</button>
+                <a href="{{ route('edit.dojo', ['id' => $dojo->kode_dojo]) }}" class="text-center bg-red-700 p-3 m-2 rounded-lg text-white md:w-1/5">Perbarui Data</a>
+                <a href="{{route('admin.datadojo')}}" class="text-center bg-gray-500 p-3 m-2 rounded-lg text-white md:w-1/5">Tutup</a> 
             </div>
         </form>
     </div>

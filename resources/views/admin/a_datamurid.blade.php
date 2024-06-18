@@ -9,6 +9,22 @@
     </a>
 </div>
 
+@if (session('success'))
+<div id="session" class="alert alert-success my-2">
+    {{ session('success') }}
+</div>
+@endif
+
+@if ($errors->any())
+<div  id="session" class="alert alert-danger my-2">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
+
 {{-- search bar start --}}
 <div class="mt-4 mb-4  md:mb-8">
     <form action="" method="GET">
@@ -27,21 +43,7 @@
 </div>
 {{-- search bar end --}}
 
-@if (session('success'))
-<div id="notif-login" class="alert bg-green-600 text-white alert-berhasil mb-2">
-    {{ session('success') }}
-</div>
-@endif
 
-@if ($errors->any())
-<div  id="notif-login" class="alert bg-red-600 text-white alert-gagal mb-2">
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
 
 {{-- list data --}}
 <div class="flex flex-col">

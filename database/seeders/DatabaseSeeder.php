@@ -48,7 +48,7 @@ class DatabaseSeeder extends Seeder
             'name' => "Admin", 
             'email' => "meliaprnmsr@gmail.com",
             'password' => bcrypt('rahasia'),
-            'role' => "pelatih"
+            'role' => "admin"
         ]);
 
         // DOJO
@@ -56,24 +56,24 @@ class DatabaseSeeder extends Seeder
         // DOJO
         Dojo::create([
             'nama_dojo' => "Dojo Al-Amin", 
-            'alamat_dojo' => "Medan Merdeka",
-            'pengcab' => "Pengcab Medan Merdeka",
+            'alamat_dojo' => "Jalan Raya",
+            'pengcab' => "Pengcab Medan",
             'tanggal_berdiri' => "2024-06-04",
             'status' => "aktif"
         ]);
 
         Dojo::create([
             'nama_dojo' => "Dojo B", 
-            'alamat_dojo' => "Setia Budi",
-            'pengcab' => "Pengcab Medan Merdeka",
+            'alamat_dojo' => "Jalan Raya",
+            'pengcab' => "Pengcab Deli Serdang",
             'tanggal_berdiri' => "2022-06-04",
             'status' => "aktif"
         ]);
 
         Dojo::create([
             'nama_dojo' => "Dojo C", 
-            'alamat_dojo' => "Dr Mansyur",
-            'pengcab' => "Pengcab b",
+            'alamat_dojo' => "Jalan Raya",
+            'pengcab' => "Pengcab Binjai",
             'tanggal_berdiri' => "2021-06-04",
             'status' => "aktif"
         ]);
@@ -117,7 +117,7 @@ class DatabaseSeeder extends Seeder
         Pelatih::create([
             'nama_pelatih' => "Daniel",
             'tanggal_lahir' => "2000-08-02",
-            'pengcab' => "Pengcab Medan Merdeka",
+            'pengcab' => "Pengcab Medan",
             'dan' => "1",
             'nomor_telepon' => "08126453798",
             'Alamat' => "Medan Baru",

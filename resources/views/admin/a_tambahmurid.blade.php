@@ -3,7 +3,8 @@
 @section('content')
 <div class="mt-2 mb-4 md:mb-8 md:mt-4 items-center text-center">
     <button class="flex justify-start" onclick="history.back();">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6 md:size-8 text-black">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+            class="size-6 md:size-8 text-black">
             <path fill-rule="evenodd"
                 d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-4.28 9.22a.75.75 0 0 0 0 1.06l3 3a.75.75 0 1 0 1.06-1.06l-1.72-1.72h5.69a.75.75 0 0 0 0-1.5h-5.69l1.72-1.72a.75.75 0 0 0-1.06-1.06l-3 3Z"
                 clip-rule="evenodd" />
@@ -14,7 +15,7 @@
 </div>
 
 <div class="w-full">
-    <form action="/admin/addmurid" method="POST" enctype="multipart/form-data">
+    <form action="/admin/addmurid" method="POST" enctype="multipart/form-data" id="validasi-form">
         @csrf
         <div class="grid md:grid-cols-2 gap-6 p-6">
             <div>
@@ -22,13 +23,19 @@
                 <input type="text" id="nama_murid" name="nama_murid"
                     class="py-3 px-4 w-full border border-black rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     required>
+                <p id="validasi-nama-murid" class="text-gray-600 text-xs mt-1">Hanya boleh diisi dengan huruf (besar
+                    atau kecil), spasi, dan titik(.).</p>
+                <span id="validasi-nama-murid"></span>
             </div>
 
             <div>
                 <label for="email" class="text-sm font-medium mb-3">Email</label>
-                <input type="email" id="email" name="email"
+                <input type="email" id="email_pendaftar" name="email"
                     class="py-3 px-4 w-full border border-black rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     required>
+                <p id="validasi-email-pendaftar" class="text-gray-600 text-xs mt-1">Masukkan alamat email Anda yang
+                    valid.<br> Contoh: example@example.com</p>
+                <span id="validasi-email-pendaftar"></span>
             </div>
 
             <div>
@@ -36,6 +43,9 @@
                 <input type="password" id="password" name="password"
                     class="py-3 px-4 w-full border border-black rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     required>
+                <p id="validasi-password" class="text-gray-600 text-xs mt-1">Minimal terdiri dari delapan karakter,
+                    setidaknya satu huruf besar, satu huruf kecil, satu angka, dan dapat menggunakan underscore(_). </p>
+                <span id="validasi-password"></span>
             </div>
 
             <div>
@@ -54,16 +64,22 @@
 
             <div>
                 <label for="nomor_telepon_rumah" class="text-sm font-medium mb-3">Nomor Telepon</label>
-                <input type="text" id="nomor_telepon_rumah" name="nomor_telepon_rumah"
+                <input type="text" id="no_telp_rumah" name="nomor_telepon_rumah"
                     class="py-3 px-4 w-full border border-black rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     required>
+                <p id="validasi-no-telp" class="text-gray-600 text-xs mt-1">Nomor telepon diawali dengan 08. Contoh:
+                    08xxxxxxxx</p>
+                <span id="validasi-no-telp"></span>
             </div>
 
             <div>
                 <label for="nama_orang_tua_wali" class="text-sm font-medium mb-3">Nama Orang Tua / Wali</label>
-                <input type="text" id="nama_orang_tua_wali" name="nama_orang_tua_wali"
+                <input type="text" id="nama_ortu" name="nama_orang_tua_wali"
                     class="py-3 px-4 w-full border border-black rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     required>
+                <p id="validasi-nama-ortu" class="text-gray-600 text-xs mt-1">Hanya boleh diisi dengan huruf (besar atau
+                    kecil), spasi, dan titik(.).</p>
+                <span id="validasi-nama-ortu"></span>
             </div>
 
             <div>
@@ -71,13 +87,22 @@
                 <input type="text" id="pekerjaan_orang_tua" name="pekerjaan_orang_tua"
                     class="py-3 px-4 w-full border border-black rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     required>
+                <p id="validasi-pekerjaan-ortu" class="text-gray-600 text-xs mt-1">Hanya boleh terdiri dari huruf (besar
+                    atau kecil), spasi, dan tanda hubung.</p>
+                <span id="validasi-pekerjaan-ortu"></span>
             </div>
 
             <div>
                 <label for="pendidikan_terakhir" class="text-sm font-medium mb-3">Pendidikan Terakhir</label>
-                <input type="text" id="pendidikan_terakhir" name="pendidikan_terakhir"
+                <select id="pendidikan_terakhir" name="pendidikan_terakhir"
                     class="py-3 px-4 w-full border border-black rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                     required>
+                    <option>Sekolah Dasar</option>
+                    <option>Sekolah Menengah Pertama</option>
+                    <option>Sekolah Menengah Atas</option>
+                    <option>Universitas</option>
+                    <option>Tidak Ada</option>
+                </select>
             </div>
 
             <div>
@@ -102,79 +127,85 @@
                 </select>
             </div>
 
-
-
             <div>
                 <label for="foto" class="text-sm font-medium mb-3">Foto</label>
                 <input type="file" id="foto" name="foto"
                     class="py-3 px-4 w-full border border-black rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500">
             </div>
-
-
             <input type="hidden" name="status" value="aktif">
-
         </div>
-
-
         <div class="flex justify-center">
-            <button onclick="my_modal_tambah.showModal()" class="bg-red-700 p-3 m-2 rounded-lg text-white md:w-1/5 text-sm">Tambah</button>
-            <button onclick="my_modal_batal.showModal()" class="bg-gray-500 p-3 m-2 rounded-lg text-white md:w-1/5 text-sm">Batal</button>
+            <button type="button" onclick="my_modal_tambah.showModal()" id="validasi-btn"
+                class="bg-red-700 p-3 m-2 rounded-lg text-white md:w-1/5 text-sm disabled:opacity-60"
+                disabled>Tambah</button>
+            <button type="button" onclick="my_modal_batal.showModal()"
+                class="bg-gray-500 p-3 m-2 rounded-lg text-white md:w-1/5 text-sm">Batal</button>
         </div>
+
+        {{-- modal validasi tambah --}}
+        <dialog id="my_modal_tambah" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+
+                <div class="mt-6 flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                        class="size-20 text-blue-700">
+                        <path
+                            d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
+                        <path fill-rule="evenodd"
+                            d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087ZM12 10.5a.75.75 0 0 1 .75.75v4.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l1.72 1.72v-4.94a.75.75 0 0 1 .75-.75Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <h3 class="font-bold text-2xl text-center">Tambah Murid</h3>
+                <p class="py-4 mb-2 text-center text-black">Apakah anda yakin ingin menambahkan data?</p>
+                <div class="modal-action flex justify-center text-black">
+                    <button class="btn bg-red-700 hover:bg-red-800 text-white" type="button" onclick="submitForm()">Ya,
+                        Tambahkan Murid</button>
+                    <form method="dialog">
+                        <button class="btn bg-gray-300">Tidak, Batalkan</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+        {{-- modal validasi tambah--}}
+
+        {{-- modal validasi batal --}}
+        <dialog id="my_modal_batal" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <form method="dialog">
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                </form>
+
+                <div class="mt-6 flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                        class="size-20 text-red-700">
+                        <path fill-rule="evenodd"
+                            d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <h3 class="font-bold text-2xl text-center">Batalkan Tambahkan Murid</h3>
+                <p class="py-4 mb-2 text-center text-black">Apakah Anda yakin ingin membatalkan penambahan data murid?
+                </p>
+                <div class="modal-action flex justify-center text-black">
+                    <button class="btn bg-red-700 hover:bg-red-800 text-white"><a
+                            href="{{route('admin.datamurid')}}">Ya, Batalkan Penambahan</a></button>
+                    <form method="dialog">
+                        <button class="btn bg-gray-300">Tidak, Kembali</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
+        {{-- modal validasi batal--}}
+
     </form>
-
-    {{-- modal validasi tambah --}}
-    <dialog id="my_modal_tambah" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-
-            <div class="mt-6 flex justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-20 text-blue-700">
-                    <path d="M3.375 3C2.339 3 1.5 3.84 1.5 4.875v.75c0 1.036.84 1.875 1.875 1.875h17.25c1.035 0 1.875-.84 1.875-1.875v-.75C22.5 3.839 21.66 3 20.625 3H3.375Z" />
-                    <path fill-rule="evenodd" d="m3.087 9 .54 9.176A3 3 0 0 0 6.62 21h10.757a3 3 0 0 0 2.995-2.824L20.913 9H3.087ZM12 10.5a.75.75 0 0 1 .75.75v4.94l1.72-1.72a.75.75 0 1 1 1.06 1.06l-3 3a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06l1.72 1.72v-4.94a.75.75 0 0 1 .75-.75Z" clip-rule="evenodd" />
-                  </svg>
-                                  
-            </div>
-            <h3 class="font-bold text-2xl text-center">Tambah Murid</h3>
-            <p class="py-4 mb-2 text-center text-black">Apakah anda yakin ingin menambahkan data?</p>
-            <div class="modal-action flex justify-center text-black">
-                <button class="btn bg-red-700 hover:bg-red-800 text-white" type="submit">Ya, Tambahkan Murid</button>
-                <form method="dialog">
-                    <button class="btn bg-gray-300">Tidak, Batalkan</button>
-                </form>
-            </div>
-        </div>
-    </dialog>
-    {{-- modal validasi tambah--}}
-
-    {{-- modal validasi batal --}}
-    <dialog id="my_modal_batal" class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-
-            <div class="mt-6 flex justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                    class="size-20 text-red-700">
-                    <path fill-rule="evenodd"
-                        d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"
-                        clip-rule="evenodd" />
-                </svg>
-            </div>
-            <h3 class="font-bold text-2xl text-center">Batalkan Tambahkan Murid</h3>
-            <p class="py-4 mb-2 text-center text-black">Apakah Anda yakin ingin membatalkan penambahan data murid?</p>
-            <div class="modal-action flex justify-center text-black">
-                <button class="btn bg-red-700 hover:bg-red-800 text-white"><a href="{{route('admin.datamurid')}}">Ya, Batalkan Penambahan</a></button>
-                <form method="dialog">
-                    <button class="btn bg-gray-300">Tidak, Kembali</button>
-                </form>
-            </div>
-        </div>
-    </dialog>
-    {{-- modal validasi batal--}}
-
 </div>
-</div>
+<script>
+    function submitForm() {
+      document.getElementById('validasi-form').submit();
+  }
+</script>
 @endsection

@@ -35,14 +35,12 @@ class AuthenticatedSessionController extends Controller
         switch ($user->role) {
             case 'admin':
                 return redirect()->intended('/admin/dashboard')->with('status', 'You are logged in as Admin!');
-            case 'user':
-                return redirect()->intended('/user/dashboard')->with('status', 'You are logged in as User!');
             case 'pelatih':
                 return redirect()->intended('/pelatih/dashboard')->with('status', 'You are logged in as Pelatih!');
             case 'murid':
                 return redirect()->intended('/murid/dashboard')->with('status', 'You are logged in as Murid!');
             default:
-                return redirect()->intended(RouteServiceProvider::HOME)->with('status', 'You are logged in!');
+                return redirect()->intended('/home')->with('status', 'Failed to Login');
         }
     }
 
@@ -57,6 +55,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/home');
     }
 }

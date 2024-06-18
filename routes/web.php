@@ -162,3 +162,5 @@ Route::group(['middleware' => ['murid']], function () {
 //LANDING PAGE
 Route::get('/home', [LandingPageController::class, 'home'])->name('home');
 Route::get('/pendaftaran', [LandingPageController::class, 'pendaftaran'])->name('pendaftaran');
+Route::post('/pendaftaran', [LandingPageController::class, 'store']);
+Route::get('/produk', [LandingPageController::class, 'produk'])->name('produk');

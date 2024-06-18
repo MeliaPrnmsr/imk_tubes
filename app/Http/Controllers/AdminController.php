@@ -122,10 +122,10 @@ class AdminController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('admin.datamurid')->with('success', 'Murid berhasil ditambahkan!')->delay(10);
+            return redirect()->route('admin.datamurid')->with('success', 'Murid berhasil ditambahkan!');
         } catch (\Exception $e) {
             DB::rollBack();
-            return redirect()->route('admin.datamurid')->withErrors(['error' => 'Terjadi kesalahan saat menambahkan murid: ' . $e->getMessage()])->delay(10);
+            return redirect()->route('admin.datamurid')->withErrors(['error' => 'Terjadi kesalahan saat menambahkan murid: ' . $e->getMessage()]);
         }
         
     }
@@ -208,10 +208,8 @@ class AdminController extends Controller
     {
         $murid = Murid::findOrFail($id);
 
-        // dd($murid);
-
         $murid->update($request->all()); 
-        return redirect()->route('admin.murid')->with('success', 'Data murid berhasil diperbarui!');
+        return redirect()->route('admin.datamurid')->with('success', 'Data murid berhasil diperbarui!');
     }
 
 
@@ -352,7 +350,7 @@ class AdminController extends Controller
             }
         }
 
-        return redirect()->route('admin.pelatih')->with('success', 'Data pelatih berhasil diperbarui!');
+        return redirect()->route('admin.datapelatih')->with('success', 'Data pelatih berhasil diperbarui!');
     }
 
 
@@ -612,12 +610,10 @@ class AdminController extends Controller
     }
     // MATERI
     // MATERI
-    public function materi()
+    public function materi($belt)
     {
-
-
-
-        return view('admin.a_materi');
+        $materi = Materi::where('belt', $belt)->get();
+        return view('admin.a_materi', compact('materi', 'belt'));
     }
 
     public function datamateri()

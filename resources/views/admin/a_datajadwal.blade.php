@@ -37,6 +37,22 @@
     </form>
 
     {{-- Button Menu End --}}
+    
+    @if (session('success'))
+    <div id="session" class="alert alert-success my-2">
+        {{ session('success') }}
+    </div>
+    @endif
+    
+    @if ($errors->any())
+    <div  id="session" class="alert alert-danger my-2">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
 
     {{-- list jadwal --}}
     <div class="flex flex-col mt-4 md:mt-8">
@@ -62,10 +78,7 @@
                                             {{ $item->jam_selesai }}</td>
                                         <td class="whitespace-nowrap px-6 py-4 font-medium">{{ $item->tempat }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
-                                            <a href="/admin/detailjadwal/{{ $item->kode_jadwal }}">
-                                                <button type="button"
-                                                    class="inline-flex p-2 items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 hover:bg-gray-200 md:w-3/5">Detail</button>
-                                            </a>
+                                            <a href="/admin/detailjadwal/{{ $item->kode_jadwal }}" class="inline-flex p-2 items-center justify-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 hover:bg-gray-200 md:w-3/5">Detail</a>
                                         </td>
                                     </tr>
                                 @endif

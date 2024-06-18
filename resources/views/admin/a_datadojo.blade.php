@@ -5,7 +5,22 @@
         <h1 class="font-bold text-xl md:text-3xl md:font-bold">Data Dojo</h1>
         <a href="/admin/tambahdojo" class="bg-red-700 p-1 text-sm md:p-4 md:text-base rounded-lg text-white">Tambah Data</a>
     </div>
+    
+    @if (session('success'))
+        <div id="session" class="alert alert-success my-2">
+            {{ session('success') }}
+        </div>
+    @endif
 
+    @if ($errors->any())
+    <div  id="session" class="alert alert-danger my-2">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     {{-- search bar start --}}
     <div class="mt-4 mb-4  md:mb-8">
         <form action="" method="GET">
@@ -24,11 +39,7 @@
     </div>
     {{-- search bar end --}}
      <div class="mt-4 mb-4  md:mb-8">
-        @if (session('success'))
-        <div id="notif-login" class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+
      </div>
     {{-- list data --}}
     <div class="flex flex-col">

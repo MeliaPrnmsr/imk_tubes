@@ -167,7 +167,7 @@ class MuridController extends Controller
         $validated = $request->validate([
             'nama_murid' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'sabuk' => 'required|string|in:putih,kuning,hijau,biru,coklat,hitam',
+            'sabuk' => 'string|in:putih,kuning,hijau,biru,coklat,hitam',
             'kode_dojo' => 'required|string|in:' . implode(',', $murids->dojo->pluck('kode_dojo')->toArray()),
             'nomor_telepon_rumah' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $murids->user_id,

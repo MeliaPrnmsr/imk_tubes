@@ -2,102 +2,57 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karate School</title>
-    <link href="{{ asset('asset/img/logo_perguruan.png') }}" rel="shortcut icon" sizes="16x16 32x32">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Regular Expressions</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    @vite('resources/js/app.js')
+    <script>
+        tailwind.config = {
+			theme: {
+				extend: {
+					colors: {
+						clifford: '#da373d',
+					}
+				}
+			}
+		}
+    </script>
+    <style type="text/tailwindcss"> @layer components
+		{
+			.title
+			{
+				@apply text-4xl font-bold text-clifford text-center;
+			}
+		}
+    </style>
 </head>
 
-<body class="font-poppins bg-black text-white">
-    {{-- Navbar --}}
-    <nav class="bg-white text-black shadow-md fixed w-full z-10">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <img src="{{ asset('asset/img/logo_perguruan.png') }}" class="h-10 mr-3" alt="Logo" />
-                <span class="font-bold text-xl">Karate School</span>
-            </div>
-            <div class="hidden md:flex space-x-4">
-                <a href="#" class="hover:text-red-700">Home</a>
-                <a href="#" class="hover:text-red-700">About</a>
-                <a href="#" class="hover:text-red-700">Program</a>
-                <a href="#" class="hover:text-red-700">News</a>
-                <a href="#" class="hover:text-red-700">Products</a>
-                <a href="#" class="hover:text-red-700">Contact</a>
-                <a href="#" class="text-red-700">Login/Register</a>
-            </div>
-        </div>
-    </nav>
-
-    {{-- Hero Section --}}
-    <section class="h-screen bg-cover bg-center relative"
-        style="background-image: url('{{ asset('asset/img/hero_bg.jpeg') }}');">
-        <div class="container mx-auto h-full flex items-center justify-center">
-            <div class="text-center">
-                <h1 class="text-5xl md:text-7xl font-bold mb-4">ABOUT FIGHT SCHOOL</h1>
-                <p class="text-lg md:text-2xl mb-8">Lorem ipsum is simply dummy text of the printing and typesetting
-                    industry.</p>
-            </div>
+<body>
+    <section class="max-w-screen-xl h-full flex flex-col gap-y-20 items-center justify-center mx-auto py-20">
+        <div class="relative w-full">
+            <input id="regex-input" type="text" name="regex-input" placeholder="RegExp" value=""
+                class="relative w-full h-12 px-4 placeholder-transparent transition-all border rounded outline-none focus-visible:outline-none peer border-slate-200 text-slate-500 autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400" />
+            <label for="regex-input"
+                class="cursor-text peer-focus:cursor-default peer-autofill:-top-2 absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent">
+                Your email </label>
+            <small
+                class="absolute flex justify-between w-full px-4 py-1 text-xs transition text-slate-400 peer-invalid:text-pink-500">
+                <span id="validation-text" class="hidden">Validation message.</span>
+                <span class="text-slate-500">1/10</span>
+            </small>
         </div>
     </section>
 
-    {{-- About Section --}}
-    <section class="bg-white text-black py-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-10">About Fight School</h2>
-            <p class="text-lg leading-8 mx-auto max-w-3xl">Lorem ipsum is simply dummy text of the printing and
-                typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-        </div>
-    </section>
+    <script>
+        let regexInput = document.querySelector("#regex-input")
+let validationText = document.querySelector("#validation-text")
 
-    {{-- Programs Section --}}
-    <section class="py-20 bg-gray-800">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-10 text-white">Programs</h2>
-            <div x-data="{ current: 0, items: ['1', '2', '3'] }" class="relative">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 overflow-hidden">
-                    <template x-for="(item, index) in items" :key="index">
-                        <div x-show="current === index" class="bg-white text-black p-6 rounded-lg">
-                            <img :src="`{{ asset('asset/img/program${item}.jpg') }}`" class="w-full rounded-lg mb-6"
-                                :alt="'Program ' + item">
-                            <h3 class="text-2xl font-semibold mb-2">Judul Program</h3>
-                            <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </template>
-                </div>
-                <button @click="current = (current === 0) ? items.length - 1 : current - 1"
-                    class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-l-lg">‹</button>
-                <button @click="current = (current === items.length - 1) ? 0 : current + 1"
-                    class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-r-lg">›</button>
-            </div>
-        </div>
-    </section>
+const REGULAR_EXPRESSION = new RegExp("\\w");
 
-    {{-- Latest News Section --}}
-    <section class="py-20">
-        <div class="container mx-auto text-center">
-            <h2 class="text-4xl font-bold mb-10 text-white">Berita Terkini</h2>
-            <div x-data="{ current: 0, items: ['1', '2', '3'] }" class="relative">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10 overflow-hidden">
-                    <template x-for="(item, index) in items" :key="index">
-                        <div x-show="current === index" class="bg-white text-black p-6 rounded-lg">
-                            <img :src="`{{ asset('asset/img/news${item}.jpg') }}`" class="w-full rounded-lg mb-6"
-                                :alt="'News ' + item">
-                            <h3 class="text-2xl font-semibold mb-2">Judul Berita</h3>
-                            <p class="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </template>
-                </div>
-                <button @click="current = (current === 0) ? items.length - 1 : current - 1"
-                    class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-l-lg">‹</button>
-                <button @click="current = (current === items.length - 1) ? 0 : current + 1"
-                    class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-700 text-white p-2 rounded-r-lg">›</button>
-            </div>
-        </div>
-    </section>
+regexInput.addEventListener("input", function() {
+    validationText.innerHTML = REGULAR_EXPRESSION.test(regexInput.value) ? "Valid" : "Invalid"
+})
+    </script>
 </body>
 
 </html>

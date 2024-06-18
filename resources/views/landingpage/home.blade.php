@@ -37,7 +37,7 @@
 </div>
 
 {{-- Team Section --}}
-<section class="py-20">
+<section class="py-20 bg-black text-white">
     <div class="container mx-auto text-center">
         <h2 class="text-4xl font-bold mb-10 text-white">PENGURUS</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 px-10 md:px-0 gap-10 items-center">
@@ -119,7 +119,7 @@
 </section>
 
 {{-- Latest News Section --}}
-<section class="py-20">
+<section class="py-20 bg-black text-white">
     <div class="container mx-auto text-center">
         <h2 class="text-4xl font-bold mb-10 text-white">Berita Terkini</h2>
         <div class="md:hidden px-6">
