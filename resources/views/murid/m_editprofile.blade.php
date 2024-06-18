@@ -29,22 +29,22 @@
                     <form action="/murid/{{ auth()->user()->id }}" method="POST">
                         @csrf
                         @method('PUT')
-                        <!--- Bagian form untuk edit profil -->
+                        <!-- Bagian form untuk edit profil -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <!--- Input Nama -->
+                            <!-- Input Nama -->
                             <div class="md:col-span-2">
                                 <label for="nama_murid" class="block font-semibold text-white">Nama</label>
                                 <input name="nama_murid" id="nama_murid" type="text" value="{{ $murids->nama_murid }}"
                                     class="form-control w-full border border-gray-300 rounded-lg py-2 px-4 mt-1 hover:border-red-700 focus:outline-none focus:ring-2 focus:ring-red-700">
                             </div>
-                            <!--- Input Tanggal Lahir -->
+                            <!-- Input Tanggal Lahir -->
                             <div>
                                 <label for="tanggal_lahir" class="block font-semibold text-white">Tanggal Lahir</label>
                                 <input name="tanggal_lahir" id="tanggal_lahir" type="date"
                                     value="{{ $murids->tanggal_lahir }}"
                                     class="form-control w-full border border-gray-300 rounded-lg py-2 px-4 mt-1 hover:border-red-700 focus:outline-none focus:ring-2 focus:ring-red-700">
                             </div>
-                            <!--- Dropdown untuk Sabuk -->
+                            <!-- Dropdown untuk Sabuk -->
                             <div>
                                 <label for="sabuk" class="block font-semibold text-white">Sabuk</label>
                                 <select name="sabuk" id="sabuk"
@@ -57,7 +57,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <!--- Dropdown untuk Dojo -->
+                            <!-- Dropdown untuk Dojo -->
                             <div class="md:col-span-2">
                                 <label for="kode_dojo" class="block font-semibold text-white">Dojo</label>
                                 <select name="kode_dojo" id="kode_dojo"
@@ -70,13 +70,14 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <!--- Input Email -->
+                            <!-- Input Email -->
                             <div class="md:col-span-2">
                                 <label for="email" class="block font-semibold text-white">Email</label>
-                                <input name="email" id="email" type="email" value="{{ $murids->user->email }}"
+                                <input name="email" id="email" type="email"
+                                    value="{{ $murids->user->email ?? '' }}"
                                     class="w-full border border-gray-300 rounded-lg py-2 px-4 mt-1 hover:border-red-700 focus:outline-none focus:ring-2 focus:ring-red-700">
                             </div>
-                            <!--- Input Nomor Telepon -->
+                            <!-- Input Nomor Telepon -->
                             <div>
                                 <label for="nomor_telepon_rumah" class="block font-semibold text-white">Telepon</label>
                                 <input name="nomor_telepon_rumah" id="nomor_telepon_rumah" type="text"
@@ -100,6 +101,7 @@
                                 style="color: inherit; text-decoration: none;">Tutup</a>
                         </button>
                     </div>
+
                 </div>
 
             </div>
