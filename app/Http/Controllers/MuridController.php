@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Dojo;
 use App\Models\Murid;
-use App\Models\Pelatih;
 use App\Models\Jadwal;
 use App\Models\Materi;
+use App\Models\Pelatih;
 
+use App\Models\Informasi;
 use App\Models\interaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +22,12 @@ class MuridController extends Controller
     {
         $murids = Murid::all();
         $jadwals = jadwal::all();
+
+        // Ambil data event mendatang
+        $upcomingEvents = Informasi::where('tanggal_informasi', '>=', now())->get();
+
         // dd($murids);
-        return view('murid.m_dashboard', compact('murids', 'jadwals'));
+        return view('murid.m_dashboard', compact('murids', 'jadwals', 'upcomingEvents'));
     }
 
     public function materi($users_id, Request $request)
@@ -33,7 +38,11 @@ class MuridController extends Controller
         $materis = Materi::where('judul_sub_materi', 'LIKE', '%' . $keyword . '%')
             ->orWhere('judul_materi', 'LIKE', '%' . $keyword . '%')
             ->orderBy('kode_materi', 'desc')->get();
-        return view('murid.m_materi', compact('murids', 'materis'));
+
+        // Ambil data event mendatang
+        $upcomingEvents = Informasi::where('tanggal_informasi', '>=', now())->get();
+
+        return view('murid.m_materi', compact('murids', 'materis', 'upcomingEvents'));
     }
 
     public function materiBySabuk($users_id, $sabuk, Request $request)
@@ -55,7 +64,11 @@ class MuridController extends Controller
             });
         }
         $materis = $materis->orderBy('kode_materi', 'desc')->get();
-        return view('murid.m_materi', compact('murids', 'materis'));
+
+        // Ambil data event mendatang
+        $upcomingEvents = Informasi::where('tanggal_informasi', '>=', now())->get();
+
+        return view('murid.m_materi', compact('murids', 'materis', 'upcomingEvents'));
     }
 
     public function isimateri_m($users_id, $materi, $judul_sub_materi)
@@ -67,7 +80,11 @@ class MuridController extends Controller
             ->where('jenis_materi', $materi)
             ->orderBy('kode_materi')
             ->get();
-        return view('murid.m_isimateri', compact('murids', 'materis'));
+
+        // Ambil data event mendatang
+        $upcomingEvents = Informasi::where('tanggal_informasi', '>=', now())->get();
+
+        return view('murid.m_isimateri', compact('murids', 'materis', 'upcomingEvents'));
     }
 
     public function jadwal($users_id)
@@ -78,7 +95,11 @@ class MuridController extends Controller
 
         // Memuat jadwal dengan relasi ke dojo 
         $jadwals = Jadwal::with('dojo')->orderBy('tanggal')->orderBy('jam_mulai')->get();
-        return view('murid.m_jadwal', compact('murids', 'jadwals'));
+
+        // Ambil data event mendatang
+        $upcomingEvents = Informasi::where('tanggal_informasi', '>=', now())->get();
+
+        return view('murid.m_jadwal', compact('murids', 'jadwals', 'upcomingEvents'));
     }
 
 
@@ -99,8 +120,11 @@ class MuridController extends Controller
             ->orderBy('jam_mulai')
             ->get();
 
+        // Ambil data event mendatang
+        $upcomingEvents = Informasi::where('tanggal_informasi', '>=', now())->get();
 
-        return view('murid.m_jadwal', compact('murids', 'jadwals'));
+
+        return view('murid.m_jadwal', compact('murids', 'jadwals', 'upcomingEvents'));
     }
 
 
@@ -123,8 +147,13 @@ class MuridController extends Controller
                 ->orWhere('users_id_2', $murid->user_id);
         })->get();
 
-        return view('murid.m_forum', compact('interaksis', 'pelatih'));
+        // Ambil data event mendatang
+        $upcomingEvents = Informasi::where('tanggal_informasi', '>=', now())->get();
+
+        // Pastikan variabel $users_id di-passing ke view
+        return view('murid.m_forum', compact('interaksis', 'pelatih', 'upcomingEvents', 'users_id'));
     }
+
 
     public function store_forum_m(Request $request, $users_id)
     {
