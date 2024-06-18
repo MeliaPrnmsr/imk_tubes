@@ -136,7 +136,7 @@
           </h1>
         </div>
 
-        <li>
+        {{-- <li>
           <a href="/pelatih/sertifikat"
             class="flex items-center p-3 text-black rounded-2xl   hover:bg-red-700  hover:text-white  active:bg-red-700  active:text-white  group">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -146,7 +146,7 @@
             </svg>
             <span data-toggle="extend" class="ms-3 overflow-y-auto hidden">Sertifikat</span>
           </a>
-        </li>
+        </li> --}}
 
         <div class="flex justify-center">
           <label class="btn btn-circle swap swap-rotate hover:bg-red-700 hover:text-white" >
