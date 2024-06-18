@@ -614,17 +614,25 @@ class AdminController extends Controller
     // MATERI
     // MATERI
     public function materi()
-    {
-        return view('admin.a_materi');
-    }
+{
+    $materi = Materi::all();
+    $sabukCounts = Materi::select('sabuk', DB::raw('count(*) as total'))
+                        ->groupBy('sabuk')
+                        ->get();
+    return view('admin.a_materi', compact('sabukCounts'));
+}
 
-    public function datamateri()
-    {
-        $materis = Materi::all()->groupBy('jenis_materi')->map(function ($group) {
-            return $group->groupBy('judul_sub_materi');
-        });
-        return view('admin.a_datamateri', compact('materis'));
-    }
+public function datamateri($sabuk)
+{
+    $materis = Materi::where('sabuk', $sabuk)
+                     ->get()
+                     ->groupBy('jenis_materi')
+                     ->map(function ($group) {
+                         return $group->groupBy('judul_sub_materi');
+                     });
+    return view('admin.a_datamateri', compact('materis', 'sabuk'));
+}
+
 
     public function detailmateri($id)
     {

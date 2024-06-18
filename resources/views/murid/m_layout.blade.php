@@ -8,7 +8,9 @@
     <link href="{{ asset('asset/img/logo_perguruan.png') }}" rel="shortcut icon" sizes="16x16 32x32">
     <title>Elearning INSHOKAI</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.2/dist/full.min.css" rel="stylesheet" type="text/css" />
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 
@@ -129,7 +131,7 @@
                     </a>
                 </li>
 
-                <li>
+                    <li>
 
                     <a href="{{ route('murid.jadwal', ['users_id' => auth()->user()->id]) }}"
                         class="flex items-center p-3 text-black dark:text-white rounded-xl  hover:bg-red-700  hover:text-white group {{ request()->routeIS('murid.jadwal') ? 'bg-red-700 text-white' : ' ' }}">
@@ -141,7 +143,7 @@
                         <span data-toggle="extend" class="ms-3 overflow-y-auto hidden">Jadwal</span>
                     </a>
 
-                </li>
+                    </li>
 
                 <li>
                     <a href="{{ route('murid.materi', ['users_id' => auth()->user()->id]) }}"
@@ -177,22 +179,22 @@
                             <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
                         </svg>
 
-                        <!-- close icon -->
-                        <svg class="swap-on fill-current w-5  h-5 " xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512">
-                            <polygon
-                                points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
-                        </svg>
-                    </label>
-                </div>
+                            <!-- close icon -->
+                            <svg class="swap-on fill-current w-5  h-5 " xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512">
+                                <polygon
+                                    points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
+                            </svg>
+                        </label>
+                    </div>
 
-            </ul>
+                </ul>
 
 
 
-        </div>
+            </div>
 
-    </aside>
+        </aside>
     @endisset
 
 
@@ -215,12 +217,14 @@
                         <div class="bg-gray-200 rounded-lg p-4 shadow-lg">
                             <h3 class="font-bold text-xl text-center border-b border-gray-500 p-2">Event Mendatang</h3>
 
-                            <div class="p-2 bg-white my-3 rounded-lg">
-                                <h3 class="font-semibold text-lg my-2">Event 1</h3>
-                                <p class="font-light text-sm">00/00/0000</p>
-                            </div>
+                            @foreach ($upcomingEvents as $item)
+                                <div class="p-2 bg-white my-3 rounded-lg">
+                                    <h3 class="font-semibold text-lg my-2">{{$item->nama_informasi}}</h3>
+                                    <p class="font-light text-sm">{{$item->tanggal_informasi}}</p>
+                                </div>
+                            @endforeach
 
-                            <div class="p-2 bg-white my-3 rounded-lg">
+                            {{-- <div class="p-2 bg-white my-3 rounded-lg">
                                 <h3 class="font-semibold text-lg my-2">Event 2</h3>
                                 <p class="font-light text-sm">00/00/0000</p>
                             </div>
@@ -228,7 +232,7 @@
                             <div class="p-2 bg-white my-3 rounded-lg">
                                 <h3 class="font-semibold text-lg my-2">Event 3</h3>
                                 <p class="font-light text-sm">00/00/0000</p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     {{-- event end --}}
@@ -274,8 +278,8 @@
         </div>
     </div>
 
-    <script src="{{asset('asset/js/extend.js')}}"></script>
-    <script src="{{asset('asset/js/regex-admin.js')}}"></script>
+    <script src="{{ asset('asset/js/extend.js') }}"></script>
+    <script src="{{ asset('asset/js/regex-admin.js') }}"></script>
     <script>
         document.getElementById('toggle-btn').addEventListener('click', function() {
             var sidebar = document.getElementById('logo-sidebar');
@@ -289,62 +293,64 @@
 
         //FUNCTION UNTUK MENAMPILKAN CALENDAR START
 
-            const monthYearElement = document.getElementById('monthYear');
-            const calendarElement = document.getElementById('calendar');
-            const prevMonthButton = document.getElementById('prevMonth');
-            const nextMonthButton = document.getElementById('nextMonth');
+        const monthYearElement = document.getElementById('monthYear');
+        const calendarElement = document.getElementById('calendar');
+        const prevMonthButton = document.getElementById('prevMonth');
+        const nextMonthButton = document.getElementById('nextMonth');
 
-            let currentDate = new Date();
+        let currentDate = new Date();
 
-            function renderCalendar(date) {
-                const year = date.getFullYear();
-                const month = date.getMonth();
-                const today = new Date();
+        function renderCalendar(date) {
+            const year = date.getFullYear();
+            const month = date.getMonth();
+            const today = new Date();
 
-                // Get the first and last day of the month
-                const firstDay = new Date(year, month, 1).getDay();
-                const lastDate = new Date(year, month + 1, 0).getDate();
-                const prevLastDate = new Date(year, month, 0).getDate();
+            // Get the first and last day of the month
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const prevLastDate = new Date(year, month, 0).getDate();
 
-                // Set month and year in header
-                const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                monthYearElement.textContent = `${monthNames[month]} ${year}`;
+            // Set month and year in header
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                "October", "November", "December"
+            ];
+            monthYearElement.textContent = `${monthNames[month]} ${year}`;
 
-                // Clear previous calendar content
-                calendarElement.innerHTML = '';
+            // Clear previous calendar content
+            calendarElement.innerHTML = '';
 
-                // Fill in the dates
-                // Previous month's dates
-                for (let i = firstDay; i > 0; i--) {
+            // Fill in the dates
+            // Previous month's dates
+            for (let i = firstDay; i > 0; i--) {
                 calendarElement.innerHTML += `<div class="text-gray-400">${prevLastDate - i + 1}</div>`;
-                }
+            }
 
-                // Current month's dates
-                for (let i = 1; i <= lastDate; i++) {
+            // Current month's dates
+            for (let i = 1; i <= lastDate; i++) {
                 const isToday = i === today.getDate() && month === today.getMonth() && year === today.getFullYear();
                 const className = isToday ? 'bg-red-700 text-white rounded-full' : '';
 
                 calendarElement.innerHTML += `<div class="${className}">${i}</div>`;
-                }
-
-                // Next month's dates to fill the last row
-                const nextDays = 42 - (firstDay + lastDate);
-                for (let i = 1; i <= nextDays; i++) {
-                calendarElement.innerHTML += `<div class="text-gray-400">${i}</div>`;
-                }
             }
 
-            prevMonthButton.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar(currentDate);
-            });
+            // Next month's dates to fill the last row
+            const nextDays = 42 - (firstDay + lastDate);
+            for (let i = 1; i <= nextDays; i++) {
+                calendarElement.innerHTML += `<div class="text-gray-400">${i}</div>`;
+            }
+        }
 
-            nextMonthButton.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar(currentDate);
-            });
-
+        prevMonthButton.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
             renderCalendar(currentDate);
+        });
+
+        nextMonthButton.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar(currentDate);
+        });
+
+        renderCalendar(currentDate);
     </script>
 
 

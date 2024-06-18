@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             pelatihSeeder::class,
             PelatihDojoSeeder::class,
             JadwalSeeder::class,
-            materiSeeder::class,
+            // materiSeeder::class,
             informasiSeeder::class,
         ]);  
     }

@@ -143,7 +143,8 @@
                     <h1 class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black {{ request()->routeIS('admin.datajadwal') ? 'text-red-700 border-l-2 border-black' : ' ' }}">
                         <a href="{{route('admin.datajadwal')}}">Jadwal</a>
                     </h1>
-                    <h1 class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black {{ request()->routeIS('admin.materi') ? 'text-red-700 border-l-2 border-black' : ' ' }}">
+                    <h1
+                        class="text-black p-2 hover:text-red-700 hover:border-l-2 hover:border-black {{ request()->routeIS('admin.datamateri') ? 'text-red-700 border-l-2 border-black' : ' ' }}">
                         <a href="{{route('admin.materi')}}">Materi</a>
                     </h1>
                 </div>

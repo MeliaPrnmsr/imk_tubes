@@ -16,6 +16,16 @@
         </div>
         @endforeach
     </div>
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-4 h-80 overflow-y-auto overflow-hidden">
+        @foreach($interaksis as $interaksi)
+        <div class="mb-4">
+            <div class="{{ $interaksi->users_id_1 == $users_id ? 'bg-blue-100' : 'bg-green-100' }} p-4 rounded-lg">
+                <p class="text-sm text-gray-700">{{ $interaksi->pengirim->name }}: {{ $interaksi->isi_pesan }}</p>
+                <span class="text-xs text-gray-500">{{ $interaksi->created_at->format('h:i A') }}</span>
+            </div>
+        </div>
+        @endforeach
+    </div>
 
     <div class="bg-white rounded-lg shadow-lg p-6 justify-between flex items-center">
         <form action="{{ route('forum2', ['users_id' =>$users_id]) }}" method="POST" class="w-full flex items-center">

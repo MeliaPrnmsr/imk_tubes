@@ -79,8 +79,8 @@ Route::group(['middleware' => ['admin']], function () {
         Route::get('/editjadwal/{id}', [AdminController::class, 'editjadwal'])->name('edit.jadwal');
         Route::put('/editjadwal2/{id}', [AdminController::class, 'edit_jadwal'])->name('edit.jadwal2');
 
-        Route::get('/materi', [AdminController::class, 'materi'])->name('admin.datamateri');
-        Route::get('/datamateri', [AdminController::class, 'datamateri'])->name('admin.materi');
+        Route::get('/materi', [AdminController::class, 'materi'])->name('admin.materi');
+        Route::get('/datamateri/{sabuk}', [AdminController::class, 'datamateri'])->name('admin.datamateri');
         Route::get('/detailmateri/{id}', [AdminController::class, 'detailmateri']);
         Route::get('/tambahmateri', [AdminController::class, 'tambahmateri'])->name('materi.tambah');
         Route::post('/storemateri', [AdminController::class, 'store_materi'])->name('materi.input');
