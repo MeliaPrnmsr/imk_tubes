@@ -167,7 +167,10 @@ class MuridController extends Controller
             'isi_pesan' => $request->input('isi_pesan'),
         ]);
 
-        return redirect()->route('forum2', ['users_id' => $users_id])->with('success', 'Pesan berhasil dikirim');
+         // Ambil data event mendatang
+         $upcomingEvents = informasi::where('tanggal_informasi', '>=', now())->get();
+
+        return redirect()->route('forum2', ['users_id' => $users_id, 'upcomingEvents'=> $upcomingEvents])->with('success', 'Pesan berhasil dikirim');
     }
 
 
@@ -176,7 +179,12 @@ class MuridController extends Controller
     public function profile_m($users_id)
     {
         $murids = Murid::with('dojo', 'user')->where('user_id', $users_id)->firstOrFail();
-        return view('murid.m_profile', compact('murids'));
+
+        // Ambil data event mendatang
+        $upcomingEvents = informasi::where('tanggal_informasi', '>=', now())->get();
+
+        return view('murid.m_profile', compact('murids', 'upcomingEvents'));
+
     }
 
     public function editprofile_m($users_id)
@@ -197,7 +205,11 @@ class MuridController extends Controller
         $sabuk_options = array_filter($sabuk_options, function ($sabuk) use ($murids) {
             return $sabuk !== $murids->sabuk;
         });
-        return view('murid.m_editprofile', compact('murids', 'dojos', 'sabuk_options'));
+
+         // Ambil data event mendatang
+         $upcomingEvents = informasi::where('tanggal_informasi', '>=', now())->get();
+
+        return view('murid.m_editprofile', compact('murids', 'dojos', 'sabuk_options', 'upcomingEvents'));
     }
 
     public function update($users_id, Request $request)
